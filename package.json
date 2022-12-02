@@ -1,0 +1,43 @@
+{
+  "name": "react-card-memory-game",
+  "version": "1.0.0",
+  "description": "Memory Game made with React using UTF-8 icons.",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "react",
+    "game",
+    "react-game",
+    "react-memory-game",
+    "react-card-memory-game",
+    "UTF-8 icons"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/minu1994/react-card-memory-game.git"
+  },
+  "author": "Emanuele Caurio",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "clean": "rimraf dist rimraf demo/src/lib",
+    "prebuild": "npm run clean",
+    "build": "tsc && copyfiles -u 1 \"src/**/*.css\" dist/",
+    "postbuild": "copyfiles -u 1 \"dist/**/*\" demo/src/lib"
+  },
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.9",
+    "copyfiles": "^2.4.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "reactjs-flip-card": "^1.0.7"
+  }
+}

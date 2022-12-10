@@ -12,7 +12,8 @@ interface MemoryGameProps {
     gameFinished?: Function,
     holeCardsColor?: string,
     foundCardsColor?: string,
-    flipCardsCss?: string
+    frontCardsCss?: string
+    backCardsCss?: string
 }
 
 const cardStatuses = {
@@ -36,7 +37,8 @@ export default function MemoryGame(
         gameFinished = () => undefined,
         holeCardsColor = 'orange',
         foundCardsColor = 'yellow',
-        flipCardsCss = ''
+        frontCardsCss = '',
+        backCardsCss = ''
     }: MemoryGameProps) {
     useState(validateGridNumber(gridNumber))
     const [iconsGrid] = useState<React.ReactNode[]>(getGeneratedGrid(gridNumber)) // <-- Initialize the grid just one time, only when this component is mounted
@@ -91,6 +93,12 @@ export default function MemoryGame(
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cards])
 
+    const getCardStyle = (index: number) => ({
+        background: cards[index] === cardStatuses.discovered
+            ? foundCardsColor
+            : holeCardsColor
+    })
+
     return (
         <div>
             <div
@@ -106,8 +114,10 @@ export default function MemoryGame(
                         height={"auto"}
                         cursor={"pointer"}
                         flipTrigger={'disabled'}
-                        flipCardStyle={{background: cards[index] === cardStatuses.discovered ? foundCardsColor : holeCardsColor}}
-                        flipCardCss={`MemoryGame_flipCardCss ${flipCardsCss}`}
+                        frontStyle={getCardStyle(index)}
+                        backStyle={getCardStyle(index)}
+                        frontCss={`MemoryGame_cardCss ${frontCardsCss}`}
+                        backCss={`MemoryGame_cardCss ${backCardsCss}`}
                         onClick={() => {
                             const c = [...cards]
                             let currentCard = c[index]
@@ -120,7 +130,7 @@ export default function MemoryGame(
                             setCards(c)
                         }}
                         frontComponent={<div/>}
-                        backComponent={<div className={"MemoryGame_backCard"}>{icon}</div>}
+                        backComponent={<div className={"MemoryGame_padding20"}>{icon}</div>}
                     />
                 })}
             </div>

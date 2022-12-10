@@ -53,7 +53,8 @@ A more in-depth example is available on `demo/src/App.js`
 |**gameFinished**|<code>Function</code>|`()=>undefined`|Optional callback triggered when the game is finished (all pairs found)|
 |**holeCardsColor**|<code>string</code>|`'orange'`|The color applied to the cards|
 |**foundCardsColor**|<code>string</code>|`'yellow'`|The color applied to the successfully discovered cards|
-|**flipCardsCss**|<code>string</code>|`''`|Optional `className` applied to the cards|
+|**frontCardsCss**|<code>string</code>|`''`|Optional `className` applied to the front of the cards|
+|**backCardsCss**|<code>string</code>|`''`|Optional `className` applied to the back of the cards|
 
 <br/>
 

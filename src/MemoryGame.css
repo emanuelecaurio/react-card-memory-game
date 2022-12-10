@@ -20,7 +20,7 @@
     grid-template-columns: repeat(6, 85px)
 }
 
-.MemoryGame_flipCardCss {
+.MemoryGame_cardCss {
     font-size: 2rem;
     text-align: center;
     border-radius: 5px;
@@ -31,7 +31,7 @@
     transition: .5s;
 }
 
-.MemoryGame_backCard {
+.MemoryGame_padding20 {
     padding: 20px;
 }
 

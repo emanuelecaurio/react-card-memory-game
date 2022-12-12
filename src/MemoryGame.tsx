@@ -3,6 +3,7 @@ import ReactFlipCard from "reactjs-flip-card";
 import allEqual from "./AllEqual";
 import getGeneratedGrid from "./getGeneratedGrid";
 import './MemoryGame.css'
+import {availableCardStatuses} from "./consts";
 
 interface MemoryGameProps {
     containerStyle?: CSSProperties,
@@ -14,12 +15,6 @@ interface MemoryGameProps {
     foundCardsColor?: string,
     frontCardsCss?: string
     backCardsCss?: string
-}
-
-const cardStatuses = {
-    clicked: 'X',
-    discovered: 'D',
-    hole: ''
 }
 
 function validateGridNumber(gridNumber: number) {
@@ -42,10 +37,10 @@ export default function MemoryGame(
     }: MemoryGameProps) {
     useState(validateGridNumber(gridNumber))
     const [iconsGrid] = useState<React.ReactNode[]>(getGeneratedGrid(gridNumber)) // <-- Initialize the grid just one time, only when this component is mounted
-    const [cards, setCards] = useState<string[]>(iconsGrid.map(_ => cardStatuses.hole)) // <-- card statuses
+    const [cardStatuses, setCardsStatuses] = useState<string[]>(iconsGrid.map(_ => availableCardStatuses.hole))
 
     useEffect(() => {
-        const finished = allEqual(cards, cardStatuses.discovered)
+        const finished = allEqual(cardStatuses, availableCardStatuses.discovered)
         if (finished) {
             setTimeout(() => {
                 gameFinished()
@@ -53,14 +48,14 @@ export default function MemoryGame(
         }
         // omit gameFinished: we can safely omit function props.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [cards])
+    }, [cardStatuses])
 
     // handle user card statuses clicks
     useEffect(() => {
-        let cardsClickedArray: any = []
-        cards.forEach((status, index) => {
+        let cardsClickedArray: { status: string, icon: React.ReactNode }[] = []
+        cardStatuses.forEach((status, index) => {
             const icon = iconsGrid[index]
-            if (status === cardStatuses.clicked) {
+            if (status === availableCardStatuses.clicked) {
                 cardsClickedArray.push({status, icon})
             }
         })
@@ -68,22 +63,22 @@ export default function MemoryGame(
             if (cardsClickedArray[0].icon === cardsClickedArray[1].icon) {
                 foundPair()
                 setTimeout(() => {
-                    const c = cards.map(status => {
-                        if (status === cardStatuses.clicked)
-                            return cardStatuses.discovered
+                    const newCardStatuses = cardStatuses.map(status => {
+                        if (status === availableCardStatuses.clicked)
+                            return availableCardStatuses.discovered
                         return status
                     })
-                    setCards(c)
+                    setCardsStatuses(newCardStatuses)
                 }, 200)
             } else {
                 notFoundPair()
                 setTimeout(() => {
-                    const c = cards.map(status => {
-                        if (status === cardStatuses.clicked)
-                            return cardStatuses.hole
+                    const newCardStatuses = cardStatuses.map(status => {
+                        if (status === availableCardStatuses.clicked)
+                            return availableCardStatuses.hole
                         return status
                     })
-                    setCards(c)
+                    setCardsStatuses(newCardStatuses)
                 }, 700)
             }
         }
@@ -91,10 +86,10 @@ export default function MemoryGame(
         // If not, we have to handle the "onetime" called function with additional flag state
         // we can safely omit iconsGrid because it's initialized just one time on constructor
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [cards])
+    }, [cardStatuses])
 
-    const getCardStyle = (index: number) => ({
-        background: cards[index] === cardStatuses.discovered
+    const getCardStyle = (currentCardStatus: string) => ({
+        background: currentCardStatus === availableCardStatuses.discovered
             ? foundCardsColor
             : holeCardsColor
     })
@@ -106,28 +101,33 @@ export default function MemoryGame(
                 style={containerStyle}
             >
                 {iconsGrid.map((icon, index) => {
+                    const currentCardStatus = cardStatuses[index]
                     return <ReactFlipCard
                         key={index}
-                        flipCardContainerCss={`${cards[index] === cardStatuses.discovered ? 'MemoryGame_pairFound' : ''}`}
-                        flipByProp={cards[index] !== cardStatuses.hole}
+                        flipCardContainerCss={`${currentCardStatus === availableCardStatuses.discovered ? 'MemoryGame_pairFound' : ''}`}
+                        flipByProp={currentCardStatus !== availableCardStatuses.hole}
                         width={"auto"}
                         height={"auto"}
                         cursor={"pointer"}
                         flipTrigger={'disabled'}
-                        frontStyle={getCardStyle(index)}
-                        backStyle={getCardStyle(index)}
+                        frontStyle={getCardStyle(currentCardStatus)}
+                        backStyle={getCardStyle(currentCardStatus)}
                         frontCss={`MemoryGame_cardCss ${frontCardsCss}`}
                         backCss={`MemoryGame_cardCss ${backCardsCss}`}
                         onClick={() => {
-                            const c = [...cards]
-                            let currentCard = c[index]
-                            const twoCardsClicked = c.filter(c => c === cardStatuses.clicked).length === 2
-                            if (twoCardsClicked)
+                            const cardStatusesClone = [...cardStatuses]
+                            const currentCard = cardStatusesClone[index]
+                            const twoCardsClicked: boolean = cardStatusesClone.filter(
+                                c => c === availableCardStatuses.clicked
+                            ).length === 2
+
+                            if (twoCardsClicked ||
+                                currentCard === availableCardStatuses.clicked ||
+                                currentCard === availableCardStatuses.discovered) {
                                 return
-                            if (currentCard === cardStatuses.clicked || currentCard === cardStatuses.discovered)
-                                return
-                            c[index] = cardStatuses.clicked
-                            setCards(c)
+                            }
+                            cardStatusesClone[index] = availableCardStatuses.clicked
+                            setCardsStatuses(cardStatusesClone)
                         }}
                         frontComponent={<div/>}
                         backComponent={<div className={"MemoryGame_padding20"}>{icon}</div>}

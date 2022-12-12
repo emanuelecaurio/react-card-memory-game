@@ -25,7 +25,9 @@
     "clean": "rimraf dist rimraf demo/src/lib",
     "prebuild": "npm run clean",
     "build": "tsc && copyfiles -u 1 \"src/**/*.css\" dist/",
-    "postbuild": "copyfiles -u 1 \"dist/**/*\" demo/src/lib"
+    "postbuild": "copyfiles -u 1 \"dist/**/*\" demo/src/lib",
+    "preversion": "npm run build",
+    "postversion": "git push --follow-tags"
   },
   "peerDependencies": {
     "react": ">=16.8"

@@ -20,7 +20,7 @@ yarn add react-card-memory-game
 ## 📁 Project Structure
 The project includes a demo folder initialized with Create React App.
 
-When you run the command ```build``` from reactjs-flip-card ```package.json```, a ```dist``` and a ```lib``` folder will be generated.
+When you run the command ```build``` from first-level ```package.json```, a ```dist``` and a ```lib``` folder will be generated.
 
 The ```lib``` folder will be placed automatically into the demo project.
 

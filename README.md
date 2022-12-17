@@ -1,4 +1,7 @@
 # React Card Memory Game
+<img alt="npm bundle size" src="https://img.shields.io/bundlephobia/min/react-card-memory-game?color=g">
+<img alt="Snyk Vulnerabilities for npm package" src="https://img.shields.io/snyk/vulnerabilities/npm/react-card-memory-game?color=g">
+
 Memory Game made with React using UTF-8 icons.
 
 Mobile & Desktop ready!

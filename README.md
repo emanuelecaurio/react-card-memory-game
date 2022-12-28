@@ -5,7 +5,7 @@ Memory Game made with React using UTF-8 icons.
 
 Mobile & Desktop ready!
 
-**works with**: `React >= 16.8` or higher
+**works with**: `React >= 16.8`
 ## ✔️ Getting Started
 
 You can install the module via `npm` or `yarn`:

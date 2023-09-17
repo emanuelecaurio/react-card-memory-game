@@ -61,8 +61,6 @@ A more in-depth example is available on `demo/src/App.js`
 |**backCardsCss**|<code>string</code>|`''`|Optional `className` applied to the back of the cards|
 
 <br/>
-## Curiosities
-This projects uses the package [reactjs-flip-card](https://www.npmjs.com/package/reactjs-flip-card), made by me. Check it out!
 
 ## License
 MIT

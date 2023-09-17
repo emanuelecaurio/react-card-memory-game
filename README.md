@@ -21,7 +21,7 @@ yarn add react-card-memory-game
 ## 💻 Demo
 [Live Demo](https://react-card-memory-game.surge.sh/)
 
-## 📁 Project Structure
+##  Project Structure
 The project includes a demo folder initialized with Create React App.
 
 When you run the command ```build``` from first-level ```package.json```, a ```dist``` and a ```lib``` folder will be generated.
@@ -30,7 +30,7 @@ The ```lib``` folder will be placed automatically into the demo project.
 
 You can move into ```demo``` directory and ```start``` project from its own package.json script, just like any other Create React App.
 
-## 🔨 Usage
+##  Usage
 
 ```js
 import MemoryGame from 'react-card-memory-game'
@@ -46,7 +46,7 @@ function App() {
 This is the bare minimum to have a working memory game.
 
 A more in-depth example is available on `demo/src/App.js`
-## 🧰 Props
+##  Props
 
 |Name|Type|Default|Description|
 |:--|:--:|:-----:|:----------|
@@ -61,14 +61,6 @@ A more in-depth example is available on `demo/src/App.js`
 |**backCardsCss**|<code>string</code>|`''`|Optional `className` applied to the back of the cards|
 
 <br/>
-
-## ⭐ Contributing and Support ⭐
-Contributions of any kind are welcome.
-
-If this package was helpful to you, please consider putting a star ⭐ on the GitHub project.
-
-Also, you can follow me on my [Instagram personal blog](https://www.instagram.com/minudaje/) where I share software related content and music
-
 ## Curiosities
 This projects uses the package [reactjs-flip-card](https://www.npmjs.com/package/reactjs-flip-card), made by me. Check it out!
 
